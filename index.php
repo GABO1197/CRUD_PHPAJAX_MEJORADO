@@ -25,7 +25,7 @@
     font-size: 2rem !important;
   }
 
-  /* fffff */
+  
 </style>
 <body>
     <div class="contenedor">
