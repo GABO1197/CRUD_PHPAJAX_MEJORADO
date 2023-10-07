@@ -1,0 +1,224 @@
+ :root{
+    --colorGrisclaro:#BDBDBD;
+    --colorPrimario:#486f99;
+    --colorAzulclaro:#88a7d0;
+    --colorBlanco:#ffffff;
+    --Colortexto:#000000;
+    --colorpastellila:#dbbdff;
+    --colorpastelazul:#2674b9;
+ }
+ html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+table  th{
+background-color: #2674b9 !important;
+color: #ffffff !important;
+}
+.btn1 {
+    width: 50px;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+.col_grisclaro{
+    background-color: var(--colorGrisclaro);
+}
+.col_primario{
+    background-color: var(--colorPrimario);
+}
+.col_azulclaro{
+    background-color: var(--colorAzulclaro);
+}
+.col_blanco{
+    background-color: var(--colorBlanco);
+}
+.col_texto{
+    background-color: var(--Colortexto);
+}
+.col_pastellila{
+    background-color: var(--colorpastellila);
+}
+.col_pastelazul{
+    background-color: var(--colorpastelazul);
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+/* .imagen{
+min-height: 100hv;
+justify-content: center;
+align-items: center;
+position: relative;
+}
+.imagen::before{
+    content: "";
+    position: absolute;
+    background-image: url(../img/Recurso.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+} */
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.6rem;
+    
+} 
+
+
+/* img { 
+    max-width: 100%;
+}  */
+
+h1,h2,h3,h4,h5,h6,p{
+    color:var(--Colortexto);
+}
+
+.contenedor,.boton_texto{
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+    /* background: var(--colorBlanco); */
+
+    /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5); */
+    
+}
+.contenedor2{
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+    /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5); */
+    
+}
+.contenedor3{
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+    /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5); */
+    
+}
+.contenedor_table {
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+}
+.caja_select{
+    max-width: 600px;
+    width: 95%;
+    margin: 0 auto;
+}
+.input{
+    max-width: 600px;
+    width: 95%;
+    margin: 0 auto;
+}
+/* .tres_columnas{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+} */
+
+@media(min-width: 868px){
+    .tres_columnas{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2rem;
+        /* margin-top: 13rem; */
+    }
+}
+
+@media(min-width: 868px){
+    .grid_row{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 2rem;
+        /* margin-top: 13rem; */
+    }
+}
+@media(min-width: 868px){
+    .tres_columnas_buscar{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-rows: 372px 222px; */
+        column-gap: 2rem;
+        /* margin-bottom: 13rem; */
+    }
+}
+/* .row_inputs{
+    display: grid;
+    grid-template-columns: 35% 20% 35%;
+    column-gap: 2rem;
+} */
+@media(min-width:768px){
+        .row_inputs{
+        display: grid;
+        /* grid-template-columns: repeat(3, 1fr); */
+        grid-template-columns: 35% 20% 35%;
+
+        column-gap: 2rem;
+    }
+}
+.cambiar{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+}
+@media(min-width:680px){
+    .cambiar{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2rem;
+    }
+}
+@media(max-width: 480px){
+        .row_inputs{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2rem;
+    }
+}
+@media(max-width: 300px){
+        .row_inputs{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        column-gap: 2rem;
+    }
+}
+.card{
+    margin-bottom: 4rem;
+}
+.zoom{
+    transition: width 1s, height 1s, transform 1s;
+}
+.zoom:hover{
+    transform : scale(1.1);
+}
+.colorpastel{
+    background-color: var(--colorpastelazul);
+}
+/* .chart{
+    background: rgb(74, 74, 74);
+    color: aliceblue;
+} */
+
+/* .entrada-grafica a {
+    display: inline-block;
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+} */
