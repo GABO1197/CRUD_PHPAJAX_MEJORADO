@@ -1,5 +1,5 @@
 <?php
-    
+    session_start();
    	global $conexion;
 		// private $servidor;
 		// private $usuario;
