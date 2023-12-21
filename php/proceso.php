@@ -408,7 +408,8 @@ if ($_POST['NombreProceso'] == "ELIMINARDATOSUSU")
 
     // MOSTRAR MODULOS
 
-    if($_POST['NombreProceso']=="TABLAMODULO"){
+    if($_POST['NombreProceso']=="TABLAMODULO")
+    {
       $sqlrol="SELECT modulos.idmodulo,  modulos.nombre_modulo,  modulos.orden,  modulos.estatus,
         modulos.icono FROM  modulos" ;
        //  echo $sqlrol;
@@ -418,17 +419,187 @@ if ($_POST['NombreProceso'] == "ELIMINARDATOSUSU")
            $campos[]=$fila;
            }
            echo json_encode($campos);
-           // $data=json_encode($campos);
-           //     if(count($campos)>0){
-           //       echo $data;
-           //   }else{
-           //       echo 0;
-           //   }
+           
            }else{
              echo 0;
            }
           
-     }
+    }
 
+    // ACTUALIZAR MODULO
+    if ($_POST['NombreProceso'] == "ACTUALIZARMODULO")
+{
+        $idmodulo=$_POST["idmodulo"];
+        $nombremodulo=$_POST["nombremodulo"];
+        $orden=$_POST["ordenmodulo"];
+        $icono=$_POST["icono"];
+       
+        
+        $sqlr="CALL SP_UPDATE_MODULO('$idmodulo','$nombremodulo','$orden','$icono')";
+        //  echo $sqlr;
+        if ($Resultado = $conexion->query($sqlr))
+         {
+          echo 1;
+         }
+         else{
+          echo 0;
+        }
+}
+// DESHABILITAR MODULO
+if($_POST['NombreProceso']=="MODIFICAR_MODULO"){
+  $idmodulo=$_POST['idmodulo'];
+  $estatus=$_POST['estatus'];
+  $sqlmodulo="CALL SP_MODIFICAR_ESTATUS_MODULO('$idmodulo','$estatus')";
+  // echo $sqlestatus;
+  if($Resultado = $conexion->query($sqlmodulo)){
+    echo 1;
+  }
+  else{
+    echo 0;
+  }
+}
+
+
+
+    //  CREAR OPCION
+
+    if($_POST['NombreProceso'] == "CREAROPCION"){
+
+      $nombre_opcion=$_POST["nombre_opcion"];
+      $posicion_opcion=$_POST["posicion_opcion"];
+      $modulo_opcion=$_POST["modulo_opcion"];
+      $ruta_opcion=$_POST["ruta_opcion"];
+      
+      // echo $nombre,$cantidad_p,$stock_p,$v_cantidad_p,$v_fecha_p;
+      $comandosql="INSERT INTO opciones (nombre_opcion,modulo,ruta,orden,estatus)VALUES('$nombre_opcion','$modulo_opcion','".$ruta_opcion."','$posicion_opcion','S')";
+      // echo $comandosql;
+      
+      if($Resultado = $conexion->query($comandosql)){
+        echo 1;
+      }
+      else{
+       echo 0;
+      }
+    }
+
+    // MOSTRAR OPCIONES
+    if($_POST['NombreProceso']=="TABLAOPCION")
+    {
+      $sqlrol="SELECT * FROM  opciones" ;
+       $campos=array();
+       if ($Resultado = $conexion->query($sqlrol)) {
+           while ($fila = $Resultado->fetch_assoc()) {
+           $campos[]=$fila;
+           }
+           echo json_encode($campos);
+           
+           }else{
+             echo 0;
+           }
+          
+    }
+
+    if($_POST['NombreProceso']=="ACTUALIZAROPCION")
+    {
+      $idopcion=$_POST["idopcion"];
+      $nombreopcion=$_POST["editarnombreopcion"];
+      $posicion=$_POST["editarposicion"];
+      $ruta=$_POST["editarruta"];
+      $modulo=$_POST["editarmodulo"];
+
+      $sqlopcion="CALL SP_UPDATE_OPCION('$idopcion','$nombreopcion','$modulo','$ruta','$posicion')";
+        if($Resultado = $conexion->query($sqlopcion)){
+          echo 1;
+        }
+        else{
+          echo 0;
+        }
+       
+    }
+
+    // DESHABILITAR  OPCION
+if($_POST['NombreProceso']=="MODIFICAR_ESTATUS_OPCION"){
+  $idopcion=$_POST['idopcion'];
+  $estatus=$_POST['estatus'];
+  $sqlmodulo="CALL SP_MODIFICAR_ESTATUS_OPCION('$idopcion','$estatus')";
+  // echo $sqlestatus;
+  if($Resultado = $conexion->query($sqlmodulo)){
+    echo 1;
+  }
+  else{
+    echo 0;
+  }
+}
+
+
+
+// venta de productos/////
+if($_POST['NombreProceso'] == "VENDER"){
+
+  $nombrepro=$_POST["nombrepro"];
+  $valor=$_POST["valor"];
+  // echo $nombre,$cantidad_p,$stock_p,$v_cantidad_p,$v_fecha_p;
+  $comandosql="INSERT INTO pro_venta (pro_nombre,valor)VALUES('$nombrepro','$valor')";
+  // echo $comandosql;
+  if($Resultado = $conexion->query($comandosql)){
+    echo 1;
+  }
+  else{
+   echo 0;
+  }
+}
+
+if($_POST['NombreProceso']=="TABLAVENDER")
+    {
+      $sqlrol="SELECT * FROM  pro_venta";
+       $campos=array();
+       if ($Resultado = $conexion->query($sqlrol)) {
+           while ($fila = $Resultado->fetch_assoc()) {
+           $campos[]=$fila;
+           }
+           echo json_encode($campos);
+           
+           }else{
+             echo 0;
+           }
+    }
+
+    // porcentaje de cantidad de productos 
+
+    if ($_POST['NombreProceso'] == "REPORTECANTIDADPRODUCTOS")
+    {
+        $sql="SELECT
+        productos.id, 
+        productos.nombre, 
+        productos.cantidad, 
+        productos.stok, 
+        productos.p_estatus,
+        venta.venta_id, 
+        venta.producto_id, 
+        venta.vanta_cantidad, 
+        venta.venta_fecharegistro
+      FROM
+        graficos.venta
+        INNER JOIN
+        graficos.productos
+        ON 
+        venta.venta_id = productos.id
+        WHERE venta.venta_fecharegistro >= '2023-01-1' 
+        AND venta.venta_fecharegistro <= '2023-12-31'
+        AND venta.v_estatus=1 AND productos.p_estatus=1";
+        //  echo $sqlr;
+        $campos=array();
+        if ($Resultado = $conexion->query($sql)) {
+            while ($fila = $Resultado->fetch_assoc()) {
+            $campos[]=$fila;
+            }
+            echo json_encode($campos);
+            }
+            else
+            {
+              echo "ERROR";
+            }
+    }
+      
 
 ?>

@@ -1,0 +1,3 @@
+BASE DE DATOS : graficos
+USER LOGIN: admin
+PASSWORD : 123456

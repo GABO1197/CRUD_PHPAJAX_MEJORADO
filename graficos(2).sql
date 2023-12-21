@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2023 a las 05:50:48
+-- Tiempo de generación: 25-10-2023 a las 05:25:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -82,6 +82,21 @@ FROM
 	ON 
 	venta.venta_id = productos.id$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_MODULO` (IN `ID` INT, IN `ESTATUS` VARCHAR(20))   UPDATE modulos SET
+idmodulo=ID,
+estatus = ESTATUS
+where idmodulo=ID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_OPCION` (IN `ID` INT, IN `ESTATUS` VARCHAR(20))   UPDATE opciones SET
+idopcion=ID,
+estatus = ESTATUS
+where idopcion=ID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_ESTATUS_USUARIO` (IN `IDUSUARIO` INT, IN `ESTATUS` VARCHAR(20))   UPDATE user SET
+id_user=IDUSUARIO,
+estatus = ESTATUS
+where id_user=IDUSUARIO$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_PRODUCTOS` (IN `NOMBRE` VARCHAR(200), IN `UNIDAD` VARCHAR(2000), IN `STOK` VARCHAR(2440), IN `VENTAC` VARCHAR(2500), IN `FECHA` DATE)   BEGIN
 
 INSERT INTO  productos(nombre,cantidad,stok,fecha_p)VALUES(NOMBRE,UNIDAD,STOK,NOW());
@@ -92,13 +107,88 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR_USU` (IN `NOMBRE` VARCHAR(200), IN `CELL` VARCHAR(11), IN `PASS` VARCHAR(200), IN `EMAIL` VARCHAR(233), IN `ROLL` VARCHAR(20))   INSERT INTO user(nombre_user,pass_user,cell,correo,rol)VALUES(NOMBRE,CELL,PASS,EMAIL,ROLL)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UPDATE_MODULO` (IN `ID` INT, IN `NOMBREMODULO` VARCHAR(255), IN `ORDEN` VARCHAR(250), IN `ICONO` VARCHAR(250))   UPDATE modulos SET idmodulo=ID, nombre_modulo=NOMBREMODULO, orden=ORDEN, icono=ICONO
+WHERE idmodulo=ID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UPDATE_OPCION` (IN `ID` INT, IN `NOMBREOPCION` VARCHAR(250), IN `MODULO` VARCHAR(250), IN `RUTA` VARCHAR(250), IN `ORDEN` VARCHAR(20))   UPDATE  opciones SET idopcion=ID, nombre_opcion=NOMBREOPCION, modulo=MODULO, ruta=RUTA, orden=ORDEN
+WHERE idopcion=ID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UPDATE_USU` (IN `ID` INT(11), IN `NOMBRE` VARCHAR(233), IN `PASS` VARCHAR(222), IN `CELL` VARCHAR(233), IN `EMAIL` VARCHAR(233), IN `ROL` VARCHAR(222))   UPDATE  graficos.user
+SET 
+user.id_user=ID,
+user.nombre_user=NOMBRE,
+user.pass_user=PASS,
+user.cell=CELL,
+user.correo=EMAIL,
+user.rol=ROL
+WHERE user.id_user=ID$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_VERIFICAR_USER` (IN `USUARIO` VARCHAR(255), IN `PASS` VARCHAR(255))   SELECT
 	`user`.*
 FROM
 	`user`
-	WHERE nombre_user = BINARY USUARIO AND pass_user=PASS$$
+	WHERE nombre_user = BINARY USUARIO AND pass_user=PASS AND estatus='ACTIVO'$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulos`
+--
+
+CREATE TABLE `modulos` (
+  `idmodulo` int(11) NOT NULL,
+  `nombre_modulo` varchar(255) NOT NULL,
+  `orden` varchar(255) DEFAULT NULL,
+  `estatus` varchar(255) DEFAULT NULL,
+  `icono` varchar(2550) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `modulos`
+--
+
+INSERT INTO `modulos` (`idmodulo`, `nombre_modulo`, `orden`, `estatus`, `icono`) VALUES
+(1, 'USUARIOS', '1', 'S', 'fa fa-user'),
+(2, 'GRAFICOS', '2', 'S', 'fa fa-solid fa-chart-pie'),
+(3, 'PRODUCTOS', '3', 'S', 'fa fa-archive'),
+(4, 'ADMIN', '4', 'S', 'fa fa-cog'),
+(5, 'PRESENTACION', '5', 'S', 'fa fa-address-book');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `opciones`
+--
+
+CREATE TABLE `opciones` (
+  `idopcion` int(11) NOT NULL,
+  `nombre_opcion` varchar(255) NOT NULL,
+  `modulo` varchar(200) NOT NULL,
+  `ruta` text DEFAULT NULL,
+  `orden` varchar(255) NOT NULL,
+  `estatus` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `opciones`
+--
+
+INSERT INTO `opciones` (`idopcion`, `nombre_opcion`, `modulo`, `ruta`, `orden`, `estatus`) VALUES
+(1, 'GENERAL', '1', 'tablas/lista_usuario.php', '1', 'S'),
+(2, 'HABILITADOS', '1', 'tablas/usuarios_habilitados.php', '2', 'S'),
+(3, 'DESHABILITADOS', '1', 'tablas/usuarios_deshabilitados.php', '3', 'S'),
+(4, 'GRAFICO GENERAL', '2', 'tablas/graficos.php', '1', 'S'),
+(5, 'BUSQUEDA ', '2', 'tablas/graficos_fecha.php', '2', 'S'),
+(6, 'PRODUCTOS GENERAL', '3', 'tablas/general.php', '1', 'S'),
+(7, 'PRODUCTOS HABILITADOS', '3', 'tablas/habilitados.php', '2', 'S'),
+(8, 'PRODUCTOS DESHABILITADOS', '3', 'tablas/desahabilitados.php', '3', 'S'),
+(9, 'Crear modulos', '4', 'crear_modulos/crear_modulo.php', '1', 'S'),
+(10, 'Crear Opcion', '4', 'crear_modulos/crear_opcion.php', '2', 'S'),
+(20, 'RESUMEN', '5', 'crear_modulos/resumen.php', '1', 'S'),
+(23, 'EJEMPLO 1', '5', 'crear_modulos/resumen.php', '2', 'N'),
+(24, 'fff', '5', 'crear_modulos/resumen.php', '3', 'N');
 
 -- --------------------------------------------------------
 
@@ -166,7 +256,7 @@ CREATE TABLE `user` (
   `correo` varchar(200) NOT NULL,
   `cell` varchar(11) NOT NULL,
   `rol` varchar(250) NOT NULL,
-  `estatus` int(11) NOT NULL DEFAULT 1
+  `estatus` enum('ACTIVO','INACTIVO') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -174,9 +264,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nombre_user`, `pass_user`, `correo`, `cell`, `rol`, `estatus`) VALUES
-(1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'gaboandres1197@gmail.com', '3245889169', 'ADMINISTRADOR', 1),
-(2, 'gabo', '3245889169', 'gaboandres1197@gmail.com', '123456', 'ADMINISTRADOR', 1),
-(3, 'camilo', '3214567891', 'camilo@gmail.com', '7c4a8d09ca3', 'INVITADO', 1);
+(1, 'admin', '80658c64f144849de7740bf64d7ca5a88ef951b6', 'gaboandres1', '3245889169', 'ADMINISTRADOR', 'ACTIVO'),
+(2, 'gabo', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'gaboandres1197@gmail.com', '3214558169', 'ADMINISTRADOR', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -217,6 +306,18 @@ INSERT INTO `venta` (`venta_id`, `producto_id`, `vanta_cantidad`, `venta_fechare
 --
 
 --
+-- Indices de la tabla `modulos`
+--
+ALTER TABLE `modulos`
+  ADD PRIMARY KEY (`idmodulo`);
+
+--
+-- Indices de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  ADD PRIMARY KEY (`idopcion`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -247,6 +348,18 @@ ALTER TABLE `venta`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `modulos`
+--
+ALTER TABLE `modulos`
+  MODIFY `idmodulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `opciones`
+--
+ALTER TABLE `opciones`
+  MODIFY `idopcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -262,7 +375,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`

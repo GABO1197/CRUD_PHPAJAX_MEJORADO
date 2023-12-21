@@ -1,0 +1,248 @@
+
+.profile-container {
+    position: relative;
+}
+
+.profile-trigger {
+    background-color: #3498db;
+    cursor: pointer;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-trigger img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    width: 33rem; /* Cambiado a 20 rem */
+    transition: width 0.3s ease;
+}
+.menu-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-content li {
+    padding: 10px;
+}
+
+.menu-content a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+/* .menu-content a:hover {
+    background-color: #f0f0f0;
+} */
+
+.circular-div {
+    width: 30px;
+    height: 30px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    margin-right: 10px; /* Espaciado entre el div circular y el enlace */
+}
+/* centrar el pimer div  */
+/* ... (código existente) ... */
+
+/* div centtrar */
+
+.menu-content:first-child li {
+    padding: 10px;
+    display: flex;
+    height:12rem;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+.menu-content:first-child a {
+    text-decoration: none;
+    color: #605e5e;
+    display: block;
+}
+
+/* .menu-content:first-child a:hover {
+    background-color: #f0f0f0;
+} */
+
+.circular-div {
+    width: 30px;
+    height: 30px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* responsivo  */
+/* ... (código existente) ... */
+
+/* Añadimos una media query para pantallas pequeñas (por ejemplo, teléfonos) */
+@media (max-width: 600px) {
+    .profile-container {
+        flex-direction: column; /* Cambiamos a dirección de columna en pantallas pequeñas */
+        align-items: center; /* Centramos los elementos en el eje cruzado */
+    }
+
+    .profile-trigger {
+        margin-bottom: 10px; /* Agregamos un margen inferior para separar el botón del menú */
+    }
+
+    .profile-menu {
+        width: 100%; /* Hacemos que el menú ocupe todo el ancho en pantallas pequeñas */
+        border-radius: 0; /* Quitamos la esquina redondeada en pantallas pequeñas */
+        top: initial; /* Quitamos la posición absoluta en la parte superior */
+        position: static; /* Cambiamos la posición a estática */
+    }
+
+    .menu-content {
+        height: auto; /* Permitimos que el contenido ajuste su altura automáticamente */
+        padding: 0; /* Quitamos el relleno en pantallas pequeñas */
+    }
+
+    .menu-content li {
+        padding: 15px 0; /* Ajustamos el relleno para un mejor espaciado en pantallas pequeñas */
+        display: block; /* Cambiamos a un diseño de bloque para que los elementos estén en línea */
+        text-align: center; /* Centramos el texto */
+    }
+
+    .circular-div {
+        margin-right: 0; /* Quitamos el margen derecho en pantallas pequeñas */
+        margin-bottom: 10px; /* Añadimos margen inferior para separar los elementos */
+    }
+
+    /* Estilos adicionales para hacer que el dropdown sea más responsivo */
+    .menu-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-content li {
+        padding: 10px;
+        display: block;
+        text-align: center;
+    }
+
+    .menu-content a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+
+    /* .menu-content a:hover {
+        background-color: #f0f0f0;
+    } */
+}
+
+/* ... (código existente) ... */
+/* ... (código existente) ... */
+
+/* Estilos adicionales para hacer que el dropdown sea más extravagante */
+.profile-menu {
+    background-color: #c0c0c0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Añadimos transiciones para el color de fondo y la sombra */
+}
+
+.menu-content {
+    background-color: #c0c0c0;
+    border-top: 1px solid #555555;
+    transition: background-color 0.3s ease; /* Añadimos transición para el color de fondo */
+}
+
+.menu-content li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-content a {
+    text-decoration: none;
+    color: #ecf0f1; /* Color del texto en el dropdown */
+    display: block;
+    transition: color 0.3s ease; /* Transición del color del texto al pasar el ratón */
+}
+
+/* .menu-content a:hover {
+    background-color: #2e4053; 
+    color: #3498db; 
+} */
+
+.circular-div {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+    overflow: hidden; /* Asegura que la imagen no sobresalga del círculo */
+}
+
+.circular-div img {
+    width: 100%; /* Asegura que la imagen ocupe el 100% del contenedor circular */
+    height: 100%; /* Asegura que la imagen ocupe el 100% del contenedor circular */
+    object-fit: cover; /* Ajusta la imagen para cubrir completamente el contenedor sin distorsión */
+}
+
+.menu-content button {
+    
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px;
+    /* margin-bottom: 10px; */
+    width: 50%;
+    margin: 5px 5px 5px 155px; 
+    text-align: center;
+    border: none;
+    background-color: #dadada;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición de colores al pasar el ratón */
+}
+
+.menu-content button:hover {
+    background-color: #949494; /* Cambiamos el color de fondo al pasar el ratón */
+    color: #fff; /* Cambiamos el color del texto al pasar el ratón */
+}
+
+
+/* boton */
+/* .menu-content button {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 50%;
+    margin-left: auto; 
+    text-align: center;
+    border: none;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.menu-content button:hover {
+    background-color: #2980b9;
+} */
